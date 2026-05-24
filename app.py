@@ -20,138 +20,121 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Dancing+Script:wght@700&display=swap');
 
-* { font-family: 'Nunito', sans-serif !important; }
+* { font-family: 'Nunito', sans-serif !important; color: #333333; }
 
 .stApp {
-    background: linear-gradient(160deg, #f0faf8 0%, #e0f7f4 50%, #f0faf8 100%);
+    background: linear-gradient(160deg, #f0faf8 0%, #e0f7f4 50%, #f0faf8 100%) !important;
 }
+
+/* Fix dark mode */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(160deg, #f0faf8 0%, #e0f7f4 50%, #f0faf8 100%) !important;
+}
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] div,
+[data-testid="stMarkdownContainer"] span {
+    color: #333333 !important;
+}
+.stSelectbox label, .stNumberInput label,
+.stTextInput label, .stDateInput label,
+.stForm label { color: #333333 !important; }
+[data-testid="stMetricValue"] { color: #333333 !important; }
+[data-testid="stMetricLabel"] { color: #666666 !important; }
+p, span, div, label { color: #333333; }
 
 .main-header {
     background: linear-gradient(135deg, #00b894, #00897b);
     border-radius: 28px;
     padding: 28px 20px;
     text-align: center;
-    color: white;
+    color: white !important;
     margin-bottom: 20px;
-    box-shadow: 0 8px 32px rgba(255,107,157,0.4);
+    box-shadow: 0 8px 32px rgba(0,184,148,0.4);
 }
 .main-header h1 {
     font-family: 'Dancing Script', cursive !important;
     font-size: 2.8em !important;
     margin: 0 !important;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    color: white !important;
 }
-.main-header p {
-    margin: 6px 0 0 0;
-    opacity: 0.9;
-    font-size: 0.95em;
-    font-weight: 600;
-}
+.main-header p { margin: 6px 0 0 0; opacity: 0.9; color: white !important; }
 
-.metric-row {
-    display: flex;
-    gap: 10px;
-    margin: 15px 0;
-}
+.metric-row { display: flex; gap: 10px; margin: 15px 0; }
 .metric-card {
-    flex: 1;
-    background: white;
-    border-radius: 20px;
-    padding: 16px 12px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(255,107,157,0.12);
+    flex: 1; background: white; border-radius: 20px;
+    padding: 16px 12px; text-align: center;
+    box-shadow: 0 4px 15px rgba(0,184,148,0.12);
 }
 .metric-card .val { font-size: 1.4em; font-weight: 900; }
-.metric-card .lbl { font-size: 0.75em; color: #aaa; margin-top: 4px; font-weight: 600; }
-.income-val { color: #2ecc71; }
-.expense-val { color: #00b894; }
-.balance-val { color: #00897b; }
+.metric-card .lbl { font-size: 0.75em; color: #888; margin-top: 4px; font-weight: 600; }
+.income-val { color: #2ecc71 !important; }
+.expense-val { color: #00b894 !important; }
+.balance-val { color: #00897b !important; }
 
-.cat-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 10px 0;
-}
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0; }
 .cat-card {
-    background: white;
-    border-radius: 18px;
-    padding: 14px 10px;
-    text-align: center;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    background: white; border-radius: 18px; padding: 14px 10px;
+    text-align: center; box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    cursor: pointer; transition: transform 0.2s;
 }
-.cat-name { font-size: 0.75em; color: #888; font-weight: 700; }
-.cat-amount { font-size: 1.1em; font-weight: 900; color: #333; margin: 4px 0; }
+.cat-card:hover { transform: translateY(-2px); }
+.cat-name { font-size: 0.75em; color: #888 !important; font-weight: 700; }
+.cat-amount { font-size: 1.1em; font-weight: 900; color: #333 !important; margin: 4px 0; }
 .cat-bar { height: 4px; border-radius: 2px; margin-top: 6px; }
 
 .tx-row {
-    background: white;
-    border-radius: 14px;
-    padding: 12px 16px;
-    margin: 6px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: white; border-radius: 14px; padding: 12px 16px; margin: 6px 0;
+    display: flex; justify-content: space-between; align-items: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-.tx-expense { color: #00b894; font-weight: 900; font-size: 1.05em; }
-.tx-income  { color: #2ecc71; font-weight: 900; font-size: 1.05em; }
+.tx-expense { color: #00b894 !important; font-weight: 900; font-size: 1.05em; }
+.tx-income  { color: #2ecc71 !important; font-weight: 900; font-size: 1.05em; }
 
 .calc-display {
     background: linear-gradient(135deg, #00b894, #00897b);
-    border-radius: 20px;
-    padding: 20px;
-    text-align: center;
-    color: white;
-    margin-bottom: 15px;
+    border-radius: 20px; padding: 20px; text-align: center;
+    color: white !important; margin-bottom: 15px;
 }
-.calc-amount { font-size: 3em; font-weight: 900; letter-spacing: -1px; }
+.calc-amount { font-size: 3em; font-weight: 900; color: white !important; }
 
 .cal-header {
     background: linear-gradient(135deg, #00b894, #00897b);
-    border-radius: 18px;
-    padding: 15px;
-    color: white;
-    text-align: center;
-    margin-bottom: 15px;
+    border-radius: 18px; padding: 15px;
+    color: white !important; text-align: center; margin-bottom: 15px;
 }
 
 .goal-card {
-    background: white;
-    border-radius: 20px;
-    padding: 18px;
-    margin: 10px 0;
-    box-shadow: 0 4px 15px rgba(255,107,157,0.12);
-    border: 2px solid rgba(255,107,157,0.1);
-}
-
-.bill-item {
-    background: white;
-    border-radius: 16px;
-    padding: 14px 18px;
-    margin: 8px 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    background: white; border-radius: 20px; padding: 18px; margin: 10px 0;
+    box-shadow: 0 4px 15px rgba(0,184,148,0.12);
+    border: 2px solid rgba(0,184,148,0.1);
 }
 
 .alert-pink {
     background: #f0faf8; border-left: 4px solid #00b894;
     border-radius: 12px; padding: 12px 16px;
-    margin: 8px 0; color: #c0005a; font-weight: 600;
+    margin: 8px 0; color: #006b50 !important; font-weight: 600;
 }
 .alert-purple {
     background: #e0f7f4; border-left: 4px solid #00897b;
     border-radius: 12px; padding: 12px 16px;
-    margin: 8px 0; color: #7000b8; font-weight: 600;
+    margin: 8px 0; color: #004d40 !important; font-weight: 600;
 }
 .alert-green {
     background: #f0fff8; border-left: 4px solid #2ecc71;
     border-radius: 12px; padding: 12px 16px;
-    margin: 8px 0; color: #006b38; font-weight: 600;
+    margin: 8px 0; color: #006b38 !important; font-weight: 600;
 }
 
 .section-title {
     font-family: 'Dancing Script', cursive !important;
-    font-size: 1.6em; color: #00897b; margin: 18px 0 10px 0;
+    font-size: 1.6em; color: #00897b !important; margin: 18px 0 10px 0;
+}
+
+.currency-badge {
+    background: linear-gradient(135deg, #00b894, #00897b);
+    color: white !important; border-radius: 20px;
+    padding: 4px 12px; font-size: 0.85em; font-weight: 700;
+    display: inline-block; margin-left: 8px;
 }
 
 .stButton > button {
@@ -159,7 +142,7 @@ st.markdown("""
     color: white !important; border: none !important;
     border-radius: 14px !important; font-weight: 700 !important;
     font-size: 0.95em !important; padding: 10px 20px !important;
-    box-shadow: 0 4px 15px rgba(255,107,157,0.3) !important;
+    box-shadow: 0 4px 15px rgba(0,184,148,0.3) !important;
 }
 .stProgress > div > div {
     background: linear-gradient(90deg, #00b894, #00897b) !important;
@@ -168,10 +151,10 @@ st.markdown("""
 div[data-testid="metric-container"] {
     background: white; border-radius: 18px;
     padding: 15px; border-top: 4px solid #00b894;
-    box-shadow: 0 4px 15px rgba(255,107,157,0.1);
+    box-shadow: 0 4px 15px rgba(0,184,148,0.1);
 }
 .stTabs [data-baseweb="tab-list"] {
-    background: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.9);
     border-radius: 16px; padding: 4px; gap: 2px;
 }
 .stTabs [aria-selected="true"] {
@@ -180,6 +163,7 @@ div[data-testid="metric-container"] {
 }
 .stTabs [data-baseweb="tab"] {
     border-radius: 12px !important; font-weight: 700 !important;
+    color: #333333 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -191,7 +175,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Session State ─────────────────────────────────────────────
+# ── Session State ──────────────────────────────────────────
 defaults = {
     "expenses": [], "income_entries": [],
     "monthly_income": 0.0, "chat_history": [],
@@ -201,7 +185,8 @@ defaults = {
     ]},
     "bills": [], "goals": [],
     "calc_amount": "10", "quick_cat": "Food & Dining",
-    "edit_idx": None, "show_success": None
+    "edit_idx": None, "show_success": None,
+    "currency": "USD $", "active_tab": None
 }
 for k, v in defaults.items():
     if k not in st.session_state:
@@ -213,6 +198,18 @@ if "llm" not in st.session_state:
         api_key=os.getenv("GROQ_KEY")
     )
 
+# Currency setup
+CURRENCY_OPTIONS = {
+    "USD $": "$",
+    "INR ₹": "₹",
+    "EUR €": "€",
+    "GBP £": "£",
+    "JPY ¥": "¥",
+    "AUD $": "A$",
+    "CAD $": "C$",
+}
+SYMBOL = CURRENCY_OPTIONS.get(st.session_state.currency, "$")
+
 CATEGORIES = ["Food & Dining","Transport","Shopping","Entertainment",
               "Bills & Utilities","Health","Education","Others"]
 CAT_ICONS  = {"Food & Dining":"🍜","Transport":"🚗","Shopping":"🛍️",
@@ -222,8 +219,8 @@ CAT_COLORS = {"Food & Dining":"#FFD580","Transport":"#A8D8FF",
               "Shopping":"#FFB3D1","Entertainment":"#D4A8FF",
               "Bills & Utilities":"#A8FFD4","Health":"#FFB3B3",
               "Education":"#B3D4FF","Others":"#E8E8E8"}
-PINK = ["#00b894","#00897b","#ff9dc8","#d97aff",
-        "#ffb3d4","#e6a3ff","#ffd4e8","#f0d4ff"]
+GREEN = ["#00b894","#00897b","#55efc4","#81ecec",
+         "#a8e6cf","#dfe6e9","#b2dfdb","#e0f7fa"]
 
 def total_spent():
     return sum(e["amount"] for e in st.session_state.expenses)
@@ -242,32 +239,39 @@ def get_alerts():
             sp  = cs.get(cat, 0)
             pct = sp / lim * 100
             if sp > lim:
-                alerts.append(("pink", f"🚨 Budget Alert: {CAT_ICONS.get(cat,'')} {cat} exceeded! Spent ${sp:.0f} of ${lim:.0f} limit"))
+                alerts.append(("pink", f"🚨 Budget Alert: {CAT_ICONS.get(cat,'')} {cat} exceeded! Spent {SYMBOL}{sp:.0f} of {SYMBOL}{lim:.0f} limit"))
             elif pct >= 80:
-                alerts.append(("purple", f"⚠️ Budget Warning: {CAT_ICONS.get(cat,'')} {cat} is {pct:.0f}% used (${sp:.0f} / ${lim:.0f})"))
+                alerts.append(("purple", f"⚠️ Budget Warning: {CAT_ICONS.get(cat,'')} {cat} is {pct:.0f}% used ({SYMBOL}{sp:.0f} / {SYMBOL}{lim:.0f})"))
     today = date.today()
     for b in st.session_state.bills:
         if not b["paid"]:
             due = datetime.strptime(b["due_date"], "%Y-%m-%d").date()
             dl  = (due - today).days
             if dl < 0:
-                alerts.append(("pink",   f"🚨 Bill Overdue: {b['name']} — ${b['amount']:.0f} was due {abs(dl)} day(s) ago!"))
+                alerts.append(("pink", f"🚨 Bill Overdue: {b['name']} — {SYMBOL}{b['amount']:.0f} was due {abs(dl)} day(s) ago!"))
             elif dl <= 3:
-                alerts.append(("purple", f"⏰ Bill Due Soon: {b['name']} — ${b['amount']:.0f} due in {dl} day(s)"))
+                alerts.append(("purple", f"⏰ Bill Due Soon: {b['name']} — {SYMBOL}{b['amount']:.0f} due in {dl} day(s)"))
     for g in st.session_state.goals:
         due  = datetime.strptime(g["deadline"], "%Y-%m-%d").date()
         dl   = (due - today).days
         pct  = (g["saved"] / g["target"] * 100) if g["target"] > 0 else 0
         if dl < 0 and pct < 100:
-            alerts.append(("pink", f"🚨 Goal Overdue: {g.get('emoji','🌸')} {g['name']} deadline passed! Only {pct:.0f}% saved (${g['saved']:.0f} / ${g['target']:.0f})"))
+            alerts.append(("pink", f"🚨 Goal Overdue: {g.get('emoji','🌸')} {g['name']} deadline passed! Only {pct:.0f}% saved"))
         elif dl <= 7 and pct < 100:
             alerts.append(("purple", f"⏰ Goal Deadline Soon: {g.get('emoji','🌸')} {g['name']} — {dl} days left! {pct:.0f}% saved"))
         elif pct >= 100:
             alerts.append(("green", f"🎉 Goal Completed: {g.get('emoji','🌸')} {g['name']} — You did it! 💜"))
     return alerts
 
-# ── TABS ──────────────────────────────────────────────────────
-tab1,tab2,tab3,tab4,tab5,tab6,tab7 = st.tabs([
+# Global alerts
+all_alerts = get_alerts()
+if all_alerts:
+    for atype, msg in all_alerts:
+        cls = "alert-pink" if atype == "pink" else "alert-purple" if atype == "purple" else "alert-green"
+        st.markdown(f'<div class="{cls}">🔔 {msg}</div>', unsafe_allow_html=True)
+
+# ── TABS ──────────────────────────────────────────────────
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "🏠 Home","⚡ Log","📅 Calendar",
     "📊 Charts","🎯 Budget","🌟 Goals","🤖 AI"
 ])
@@ -276,11 +280,24 @@ tab1,tab2,tab3,tab4,tab5,tab6,tab7 = st.tabs([
 # TAB 1 — HOME
 # ════════════════════════════════════════
 with tab1:
-    income = st.number_input("💵 Monthly Income ($)",
-                             min_value=0.0,
-                             value=st.session_state.monthly_income,
-                             step=100.0)
-    st.session_state.monthly_income = income
+    # Currency selector
+    col_c1, col_c2 = st.columns([3, 1])
+    with col_c1:
+        income = st.number_input(
+            f"💵 Monthly Income ({SYMBOL})",
+            min_value=0.0,
+            value=st.session_state.monthly_income,
+            step=100.0)
+        st.session_state.monthly_income = income
+    with col_c2:
+        selected_currency = st.selectbox(
+            "💱 Currency",
+            list(CURRENCY_OPTIONS.keys()),
+            index=list(CURRENCY_OPTIONS.keys()).index(
+                st.session_state.currency))
+        if selected_currency != st.session_state.currency:
+            st.session_state.currency = selected_currency
+            st.rerun()
 
     spent   = total_spent()
     balance = income - spent
@@ -289,31 +306,26 @@ with tab1:
     st.markdown(f"""
     <div class="metric-row">
         <div class="metric-card">
-            <div class="val income-val">${income:,.0f}</div>
+            <div class="val income-val">{SYMBOL}{income:,.0f}</div>
             <div class="lbl">💵 Income</div>
         </div>
         <div class="metric-card">
-            <div class="val expense-val">${spent:,.0f}</div>
+            <div class="val expense-val">{SYMBOL}{spent:,.0f}</div>
             <div class="lbl">💸 Spent</div>
         </div>
         <div class="metric-card">
-            <div class="val balance-val">${balance:,.0f}</div>
+            <div class="val balance-val">{SYMBOL}{balance:,.0f}</div>
             <div class="lbl">💰 Balance</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    alerts = get_alerts()
-    if alerts:
-        st.markdown('<div class="section-title">🔔 Alerts</div>', unsafe_allow_html=True)
-        for atype, msg in alerts:
-            cls = "alert-pink" if atype == "pink" else "alert-purple"
-            st.markdown(f'<div class="{cls}">{msg}</div>', unsafe_allow_html=True)
-
-    # Category cards
-    st.markdown('<div class="section-title">💸 Spending by Category</div>',
+    # Category cards — tap to go to Log tab
+    st.markdown('<div class="section-title">💸 Tap Category to Log</div>',
                unsafe_allow_html=True)
     cs = cat_spending()
+
+    # Display category cards
     cat_html = '<div class="cat-grid">'
     for cat in CATEGORIES:
         sp    = cs.get(cat, 0)
@@ -329,7 +341,7 @@ with tab1:
                 <span style="font-size:1.4em">{icon}</span>
             </div>
             <div class="cat-name">{cat.split(' ')[0]}</div>
-            <div class="cat-amount">${sp:.0f}</div>
+            <div class="cat-amount">{SYMBOL}{sp:.0f}</div>
             <div class="cat-bar" style="background:#f0f0f0">
                 <div style="width:{bar_w}%; background:{bar_c};
                             height:4px; border-radius:2px"></div>
@@ -338,7 +350,18 @@ with tab1:
     cat_html += '</div>'
     st.markdown(cat_html, unsafe_allow_html=True)
 
-    # Recent transactions with edit & delete
+    # Clickable category buttons to go to Log tab
+    st.markdown("**🎯 Quick Log — tap to start:**")
+    cat_btn_cols = st.columns(4)
+    for i, cat in enumerate(CATEGORIES):
+        with cat_btn_cols[i % 4]:
+            if st.button(f"{CAT_ICONS[cat]} {cat.split(' & ')[0].split(' ')[0]}",
+                        key=f"home_cat_{cat}"):
+                st.session_state.quick_cat = cat
+                st.session_state.active_tab = "log"
+                st.rerun()
+
+    # Recent transactions
     if st.session_state.expenses:
         st.markdown('<div class="section-title">🧾 Recent Transactions</div>',
                    unsafe_allow_html=True)
@@ -364,7 +387,7 @@ with tab1:
                 <span style="font-family:'Dancing Script',cursive; font-size:1.3em;
                              color:#00897b">{dow}</span>
                 <span style="margin-left:auto; color:#00b894; font-weight:700">
-                    OUT ${day_total:.0f}
+                    OUT {SYMBOL}{day_total:.0f}
                 </span>
             </div>
             """, unsafe_allow_html=True)
@@ -382,7 +405,7 @@ with tab1:
                             new_date = st.date_input("Date",
                                 value=datetime.strptime(tx["date"], "%Y-%m-%d"))
                         with ec2:
-                            new_amount = st.number_input("Amount ($)",
+                            new_amount = st.number_input(f"Amount ({SYMBOL})",
                                 min_value=0.01, value=tx["amount"], step=0.5)
                             new_cat = st.selectbox("Category", CATEGORIES,
                                 index=CATEGORIES.index(tx["category"])
@@ -412,7 +435,7 @@ with tab1:
                                         align-items:center; justify-content:center;
                                         font-size:1.2em; margin-right:10px">{icon}</div>
                             <div>
-                                <div style="font-weight:700; font-size:0.95em">
+                                <div style="font-weight:700; font-size:0.95em; color:#333">
                                     {tx['description']}
                                 </div>
                                 <div style="color:#aaa; font-size:0.78em">
@@ -420,7 +443,7 @@ with tab1:
                                 </div>
                             </div>
                         </div>
-                        <div class="tx-expense">-${tx['amount']:.2f}</div>
+                        <div class="tx-expense">{SYMBOL}{tx['amount']:.2f}</div>
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -440,13 +463,13 @@ with tab1:
             st.session_state.expenses = []
             st.rerun()
     else:
-        st.markdown("""
+        st.markdown(f"""
         <div style="background:white; border-radius:20px; padding:30px;
-                    text-align:center; box-shadow:0 4px 15px rgba(255,107,157,0.1)">
+                    text-align:center; box-shadow:0 4px 15px rgba(0,184,148,0.1)">
             <div style="font-size:2.5em">🌸</div>
             <div style="color:#00897b; font-weight:700; margin-top:8px">
                 No transactions yet!<br>
-                <small style="color:#ccc">Tap ⚡ Log to add your first one</small>
+                <small style="color:#aaa">Tap a category above to log your first expense</small>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -455,9 +478,19 @@ with tab1:
 # TAB 2 — QUICK LOG
 # ════════════════════════════════════════
 with tab2:
+    # Auto scroll here if coming from category click
+    if st.session_state.get("active_tab") == "log":
+        st.session_state.active_tab = None
+        st.markdown(f"""
+        <div class="alert-green">
+            ✅ Category selected: 
+            <strong>{CAT_ICONS.get(st.session_state.quick_cat,'')} 
+            {st.session_state.quick_cat}</strong> — Fill in the details below!
+        </div>
+        """, unsafe_allow_html=True)
+
     st.markdown('<div class="section-title">⚡ Quick Log</div>', unsafe_allow_html=True)
 
-    # Success popup
     if st.session_state.get("show_success"):
         st.success(f"🌸 Successfully logged — {st.session_state.show_success}!")
         st.session_state.show_success = None
@@ -465,27 +498,29 @@ with tab2:
     # Calculator display
     st.markdown(f"""
     <div class="calc-display">
-        <div style="font-size:0.85em; opacity:0.85; font-weight:700">
+        <div style="font-size:0.85em; opacity:0.85; font-weight:700; color:white">
             {CAT_ICONS.get(st.session_state.quick_cat,'')}
             {st.session_state.quick_cat}
         </div>
         <div class="calc-amount">
-            ${float(st.session_state.calc_amount or 0):,.2f}
+            {SYMBOL}{float(st.session_state.calc_amount or 0):,.2f}
         </div>
     </div>
     """, unsafe_allow_html=True)
 
     # Clear amount button
-    if st.button("🗑️ Clear Amount"):
-        st.session_state.calc_amount = "10"
-        st.rerun()
+    col_clr1, col_clr2 = st.columns([1, 3])
+    with col_clr1:
+        if st.button("🗑️ Clear Amount"):
+            st.session_state.calc_amount = "0"
+            st.rerun()
 
     # Quick amount buttons
-    st.markdown("**💵 Quick Amounts:**")
+    st.markdown(f"**{SYMBOL} Quick Amounts:**")
     qcols = st.columns(5)
     for i, amt in enumerate([5, 10, 20, 50, 100]):
         with qcols[i]:
-            if st.button(f"${amt}", key=f"qa_{amt}"):
+            if st.button(f"{SYMBOL}{amt}", key=f"qa_{amt}"):
                 st.session_state.calc_amount = str(float(amt))
                 st.rerun()
 
@@ -496,18 +531,20 @@ with tab2:
         with cat_cols[i % 4]:
             icon  = CAT_ICONS[cat]
             label = cat.split(' & ')[0].split(' ')[0]
-            if st.button(f"{icon} {label}", key=f"qc_{cat}"):
+            is_selected = st.session_state.quick_cat == cat
+            if st.button(f"{icon} {label}", key=f"qc_{cat}",
+                        type="primary" if is_selected else "secondary"):
                 st.session_state.quick_cat = cat
                 st.rerun()
 
     st.markdown(f"""
-    <div class="alert-purple" style="margin:10px 0">
-        Selected: <strong>{CAT_ICONS.get(st.session_state.quick_cat,'')}
+    <div class="alert-green" style="margin:10px 0">
+        ✅ Selected: <strong>{CAT_ICONS.get(st.session_state.quick_cat,'')}
         {st.session_state.quick_cat}</strong>
     </div>
     """, unsafe_allow_html=True)
 
-    # Log form — clears on submit
+    # Log form
     with st.form("quick_form", clear_on_submit=True):
         col1, col2 = st.columns(2)
         with col1:
@@ -515,7 +552,7 @@ with tab2:
                                    placeholder="e.g. Coffee, Uber, Lunch")
             q_date = st.date_input("📅 Date", value=datetime.today())
         with col2:
-            q_amount = st.number_input("💵 Amount ($)", min_value=0.01,
+            q_amount = st.number_input(f"💵 Amount ({SYMBOL})", min_value=0.01,
                                        step=0.5,
                                        value=max(float(
                                            st.session_state.calc_amount or 10), 0.01))
@@ -552,18 +589,18 @@ with tab2:
         st.markdown(f"""
         <div style="background:white; border-radius:18px; padding:16px;
                     text-align:center; margin-top:15px;
-                    box-shadow:0 4px 15px rgba(255,107,157,0.1)">
+                    box-shadow:0 4px 15px rgba(0,184,148,0.1)">
             <div style="color:#aaa; font-size:0.85em; font-weight:700">Today</div>
             <div style="display:flex; justify-content:center; gap:30px; margin-top:8px">
                 <div>
                     <div style="color:#00b894; font-size:1.4em; font-weight:900">
-                        -${te:.2f}
+                        -{SYMBOL}{te:.2f}
                     </div>
                     <div style="color:#aaa; font-size:0.75em">OUT</div>
                 </div>
                 <div>
                     <div style="color:#2ecc71; font-size:1.4em; font-weight:900">
-                        +${ti:.2f}
+                        +{SYMBOL}{ti:.2f}
                     </div>
                     <div style="color:#aaa; font-size:0.75em">IN</div>
                 </div>
@@ -595,25 +632,27 @@ with tab3:
 
     st.markdown(f"""
     <div class="cal-header">
-        <div style="font-size:1.2em; font-weight:900">
+        <div style="font-size:1.2em; font-weight:900; color:white">
             {calendar.month_name[cal_month]} {cal_year}
         </div>
         <div style="display:flex; justify-content:center; gap:24px; margin-top:10px">
             <div>
                 <div style="font-size:1.3em; font-weight:900; color:#a8ffd4">
-                    ${mo_inc_total:,.0f}
+                    {SYMBOL}{mo_inc_total:,.0f}
                 </div>
-                <div style="font-size:0.75em; opacity:0.8">Income</div>
+                <div style="font-size:0.75em; opacity:0.8; color:white">Income</div>
             </div>
             <div>
                 <div style="font-size:1.3em; font-weight:900; color:#ffb3d4">
-                    ${mo_exp_total:,.0f}
+                    {SYMBOL}{mo_exp_total:,.0f}
                 </div>
-                <div style="font-size:0.75em; opacity:0.8">Expense</div>
+                <div style="font-size:0.75em; opacity:0.8; color:white">Expense</div>
             </div>
             <div>
-                <div style="font-size:1.3em; font-weight:900">${mo_bal:,.0f}</div>
-                <div style="font-size:0.75em; opacity:0.8">Balance</div>
+                <div style="font-size:1.3em; font-weight:900; color:white">
+                    {SYMBOL}{mo_bal:,.0f}
+                </div>
+                <div style="font-size:0.75em; opacity:0.8; color:white">Balance</div>
             </div>
         </div>
     </div>
@@ -654,26 +693,24 @@ with tab3:
                         tc = "white"
                     elif exp_amt > 0:
                         alpha = min(0.15 + exp_amt / 200 * 0.5, 0.7)
-                        bg    = f"rgba(255,107,157,{alpha})"
+                        bg    = f"rgba(0,184,148,{alpha})"
                         tc    = "#333"
                     else:
                         bg = "white"
                         tc = "#333"
 
                     exp_txt = (f"<div style='color:{'white' if is_today else '#00b894'};"
-                               f"font-size:0.65em;font-weight:700'>-${exp_amt:.0f}</div>"
+                               f"font-size:0.65em;font-weight:700'>{SYMBOL}{exp_amt:.0f}</div>"
                                if exp_amt > 0 else "")
                     inc_txt = (f"<div style='color:{'white' if is_today else '#2ecc71'};"
-                               f"font-size:0.65em;font-weight:700'>+${inc_amt:.0f}</div>"
+                               f"font-size:0.65em;font-weight:700'>+{SYMBOL}{inc_amt:.0f}</div>"
                                if inc_amt > 0 else "")
 
                     st.markdown(f"""
                     <div style="background:{bg}; border-radius:10px; padding:5px 3px;
                                 text-align:center; min-height:58px; margin:2px;
                                 box-shadow:0 2px 6px rgba(0,0,0,0.05)">
-                        <div style="font-weight:800; color:{tc}; font-size:0.9em">
-                            {day}
-                        </div>
+                        <div style="font-weight:800; color:{tc}; font-size:0.9em">{day}</div>
                         {exp_txt}{inc_txt}
                     </div>
                     """, unsafe_allow_html=True)
@@ -696,7 +733,9 @@ with tab3:
                              font-size:1.1em; color:#00897b">
                     {dow}, {dt.strftime('%b %d')}
                 </span>
-                <span style="color:#00b894; font-weight:700">OUT ${day_total:.0f}</span>
+                <span style="color:#00b894; font-weight:700">
+                    OUT {SYMBOL}{day_total:.0f}
+                </span>
             </div>
             """, unsafe_allow_html=True)
             for tx in txs:
@@ -711,13 +750,13 @@ with tab3:
                             {icon}
                         </div>
                         <div>
-                            <div style="font-weight:700; font-size:0.9em">
+                            <div style="font-weight:700; font-size:0.9em; color:#333">
                                 {tx['description']}
                             </div>
                             <div style="color:#aaa; font-size:0.75em">{tx['category']}</div>
                         </div>
                     </div>
-                    <div class="tx-expense">-${tx['amount']:.2f}</div>
+                    <div class="tx-expense">{SYMBOL}{tx['amount']:.2f}</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -734,7 +773,7 @@ with tab4:
         ct["label"] = ct["category"].map(CAT_ICONS) + " " + ct["category"]
         fig1 = px.pie(ct, values="amount", names="label",
                      title="🌸 Where did my money go?",
-                     color_discrete_sequence=PINK, hole=0.45)
+                     color_discrete_sequence=GREEN, hole=0.45)
         fig1.update_traces(textposition='outside', textinfo='percent+label')
         fig1.update_layout(font_family="Nunito", showlegend=False,
                           plot_bgcolor="rgba(0,0,0,0)",
@@ -747,7 +786,7 @@ with tab4:
                       title="📅 Daily Spending Trend",
                       color_discrete_sequence=["#00b894"])
         fig2.update_traces(fill='tozeroy',
-                          fillcolor='rgba(255,107,157,0.15)',
+                          fillcolor='rgba(0,184,148,0.15)',
                           line_color="#00b894")
         fig2.update_layout(font_family="Nunito",
                           plot_bgcolor="rgba(0,0,0,0)",
@@ -756,10 +795,10 @@ with tab4:
         st.plotly_chart(fig2, use_container_width=True)
 
         fig3 = go.Figure()
-        fig3.add_trace(go.Bar(name="💵 Income", x=["This Month"],
+        fig3.add_trace(go.Bar(name=f"💵 Income", x=["This Month"],
                              y=[st.session_state.monthly_income],
                              marker_color="#00897b", marker_line_width=0))
-        fig3.add_trace(go.Bar(name="💸 Spent", x=["This Month"],
+        fig3.add_trace(go.Bar(name=f"💸 Spent", x=["This Month"],
                              y=[total_spent()],
                              marker_color="#00b894", marker_line_width=0))
         fig3.update_layout(title="💰 Income vs Spending", barmode="group",
@@ -771,7 +810,7 @@ with tab4:
     else:
         st.markdown("""
         <div style="background:white; border-radius:20px; padding:40px;
-                    text-align:center; box-shadow:0 4px 15px rgba(255,107,157,0.1)">
+                    text-align:center; box-shadow:0 4px 15px rgba(0,184,148,0.1)">
             <div style="font-size:3em">📊</div>
             <div style="color:#00897b; font-weight:700; margin-top:10px">
                 Add expenses to see insights! ✨
@@ -796,7 +835,7 @@ with tab5:
             values=[total_spent_n, max(total_budget - total_spent_n, 0)],
             labels=["Spent","Remaining"],
             hole=0.65,
-            marker_colors=["#00b894","#f0e8ff"],
+            marker_colors=["#00b894","#e0f7f4"],
             textinfo="none"
         ))
         fig_donut.update_layout(
@@ -816,7 +855,7 @@ with tab5:
         st.markdown(f"""
         <div style="text-align:center; color:#00b894; font-size:1.1em;
                     font-weight:800; margin:-15px 0 15px">
-            ${total_spent_n:.0f} / ${total_budget:.0f}
+            {SYMBOL}{total_spent_n:.0f} / {SYMBOL}{total_budget:.0f}
         </div>
         """, unsafe_allow_html=True)
 
@@ -837,11 +876,11 @@ with tab5:
                                 width:32px; height:32px; display:flex;
                                 align-items:center; justify-content:center">{icon}</div>
                     <div>
-                        <div style="font-weight:700; font-size:0.85em">
+                        <div style="font-weight:700; font-size:0.85em; color:#333">
                             {cat.split(' & ')[0]}
                         </div>
                         <div style="color:{bar_c}; font-size:0.75em; font-weight:700">
-                            ${sp:.0f}{'/ $'+str(int(lim)) if lim > 0 else ''}
+                            {SYMBOL}{sp:.0f}{' / '+SYMBOL+str(int(lim)) if lim > 0 else ''}
                         </div>
                     </div>
                 </div>
@@ -851,7 +890,7 @@ with tab5:
                     st.progress(min(pct / 100, 1.0))
             with col3:
                 st.session_state.budgets[cat] = st.number_input(
-                    "Limit", min_value=0.0, value=lim,
+                    f"Limit ({SYMBOL})", min_value=0.0, value=lim,
                     step=10.0, key=f"bgt_{cat}",
                     label_visibility="collapsed")
 
@@ -871,9 +910,9 @@ with tab6:
         col1, col2 = st.columns(2)
         with col1:
             gname   = st.text_input("🎯 Goal", placeholder="New phone, Vacation...")
-            gtarget = st.number_input("💵 Target ($)", min_value=1.0, step=10.0)
+            gtarget = st.number_input(f"💵 Target ({SYMBOL})", min_value=1.0, step=10.0)
         with col2:
-            gsaved    = st.number_input("💰 Saved so far ($)", min_value=0.0, step=10.0)
+            gsaved    = st.number_input(f"💰 Saved so far ({SYMBOL})", min_value=0.0, step=10.0)
             gdeadline = st.date_input("📅 By when?")
             gemoji    = st.text_input("🎨 Emoji", value="🌸", max_chars=2)
 
@@ -908,13 +947,13 @@ with tab6:
                     </div>
                     <div style="text-align:right">
                         <div style="color:#00b894; font-size:1.3em; font-weight:900">
-                            ${g['saved']:,.0f}
+                            {SYMBOL}{g['saved']:,.0f}
                         </div>
-                        <div style="color:#aaa; font-size:0.8em">of ${g['target']:,.0f}</div>
+                        <div style="color:#aaa; font-size:0.8em">of {SYMBOL}{g['target']:,.0f}</div>
                     </div>
                 </div>
                 <div style="margin:10px 0 4px; color:#888; font-size:0.82em; font-weight:700">
-                    📅 {dl} days left · 💰 ${rem:,.0f} to go · {pct:.0f}% complete
+                    📅 {dl} days left · 💰 {SYMBOL}{rem:,.0f} to go · {pct:.0f}% complete
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -923,14 +962,14 @@ with tab6:
 
             col1, col2, col3 = st.columns([3, 2, 1])
             with col1:
-                add_amt = st.number_input("Add $", min_value=0.01, step=10.0,
+                add_amt = st.number_input(f"Add {SYMBOL}", min_value=0.01, step=10.0,
                                           key=f"gadd_{i}",
                                           label_visibility="collapsed",
                                           placeholder="Add amount...")
             with col2:
                 if st.button("➕ Add Money", key=f"gsave_{i}"):
                     st.session_state.goals[i]["saved"] += add_amt
-                    st.success(f"🌸 Added ${add_amt:.0f} to {g['name']}!")
+                    st.success(f"🌸 Added {SYMBOL}{add_amt:.0f} to {g['name']}!")
                     st.rerun()
             with col3:
                 if st.button("🗑️", key=f"gdel_{i}"):
@@ -941,13 +980,13 @@ with tab6:
         c1, c2, c3 = st.columns(3)
         c1.metric("🌟 Goals", len(st.session_state.goals))
         c2.metric("🎯 Target",
-                 f"${sum(g['target'] for g in st.session_state.goals):,.0f}")
+                 f"{SYMBOL}{sum(g['target'] for g in st.session_state.goals):,.0f}")
         c3.metric("💰 Saved",
-                 f"${sum(g['saved'] for g in st.session_state.goals):,.0f}")
+                 f"{SYMBOL}{sum(g['saved'] for g in st.session_state.goals):,.0f}")
     else:
         st.markdown("""
         <div style="background:white; border-radius:20px; padding:35px;
-                    text-align:center; box-shadow:0 4px 15px rgba(255,107,157,0.1)">
+                    text-align:center; box-shadow:0 4px 15px rgba(0,184,148,0.1)">
             <div style="font-size:2.5em">🌟</div>
             <div style="color:#00897b; font-weight:700; margin-top:10px">
                 No goals yet! Set your first savings goal ✨
@@ -966,17 +1005,18 @@ with tab7:
     spent   = total_spent()
     balance = st.session_state.monthly_income - spent
     cs      = cat_spending()
-    breakdown = "\n".join([f"- {k}: USD {v:.2f}" for k, v in cs.items()]) \
+    breakdown = "\n".join([f"- {k}: {SYMBOL}{v:.2f}" for k, v in cs.items()]) \
                 or "No expenses yet."
 
     context = f"""
-Monthly Income: USD {st.session_state.monthly_income:.2f}
-Total Spent: USD {spent:.2f}
-Remaining Balance: USD {balance:.2f}
+Monthly Income: {SYMBOL}{st.session_state.monthly_income:.2f}
+Total Spent: {SYMBOL}{spent:.2f}
+Remaining Balance: {SYMBOL}{balance:.2f}
+Currency: {st.session_state.currency}
 Spending Breakdown:
 {breakdown}
 Savings Goals: {len(st.session_state.goals)} goals,
-total saved USD {sum(g['saved'] for g in st.session_state.goals):.2f}
+total saved {SYMBOL}{sum(g['saved'] for g in st.session_state.goals):.2f}
 """
     system = SystemMessage(content=f"""You are a friendly, cute and smart personal
 financial advisor named Penny 🌸. You have access to the user's real financial data:
@@ -1004,7 +1044,7 @@ Be encouraging, supportive and use cute emojis. Keep responses clear and concise
     if not st.session_state.chat_history:
         st.markdown("""
         <div style="background:white; border-radius:20px; padding:20px;
-                    box-shadow:0 4px 15px rgba(255,107,157,0.1);
+                    box-shadow:0 4px 15px rgba(0,184,148,0.1);
                     border-left:4px solid #00b894; margin-bottom:10px">
             <div style="display:flex; align-items:center; gap:10px">
                 <span style="font-size:1.8em">🌸</span>
