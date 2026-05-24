@@ -13,8 +13,136 @@ import plotly.express as px
 import plotly.graph_objects as go
 from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
+from supabase import create_client
 
 st.set_page_config(page_title="🌸 Finance Diary", page_icon="🌸", layout="centered")
+
+# ── Supabase Setup ─────────────────────────────────
+supabase = create_client(
+    os.getenv("SUPABASE_URL"),
+    os.getenv("SUPABASE_KEY")
+)
+
+# ── Auth Functions ─────────────────────────────────
+def show_login_page():
+    st.markdown("""
+    <div style="background:linear-gradient(135deg,#00b894,#00897b);
+                border-radius:28px; padding:40px; text-align:center;
+                color:white; margin-bottom:30px;
+                box-shadow:0 8px 32px rgba(0,184,148,0.4)">
+        <div style="font-size:3em">🌸</div>
+        <h1 style="font-family:'Dancing Script',cursive; font-size:2.5em;
+                   margin:10px 0; color:white">Finance Diary</h1>
+        <p style="opacity:0.9; font-size:1.1em">Your cute & smart money tracker ✨</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style="background:white; border-radius:24px; padding:30px;
+                box-shadow:0 8px 32px rgba(0,184,148,0.15);
+                max-width:400px; margin:0 auto; text-align:center">
+        <h2 style="color:#00897b; font-family:'Dancing Script',cursive;
+                   font-size:1.8em">Welcome Back! 🌿</h2>
+        <p style="color:#888; font-size:0.95em; margin-bottom:20px">
+            Sign in to access your finance diary
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        st.markdown("### 📧 Sign in with Email")
+        email = st.text_input("Email", placeholder="your@email.com")
+        password = st.text_input("Password", type="password",
+                                  placeholder="Your password")
+
+        if st.button("🌸 Login", use_container_width=True):
+            try:
+                res = supabase.auth.sign_in_with_password({
+                    "email": email, "password": password
+                })
+                st.session_state.user = res.user
+                st.session_state.access_token = res.session.access_token
+                st.success(f"Welcome back! 🌸")
+                st.rerun()
+            except Exception as e:
+                st.error("Invalid email or password!")
+
+        st.markdown("---")
+        st.markdown("**New here?**")
+
+        if st.button("✨ Create Account", use_container_width=True):
+            st.session_state.show_signup = True
+            st.rerun()
+
+        st.markdown("""
+        <div style="background:#f0faf8; border-radius:14px; padding:14px;
+                    margin-top:15px; text-align:center; color:#00897b;
+                    font-size:0.85em; font-weight:600">
+            🔒 Your data is secure and private
+        </div>
+        """, unsafe_allow_html=True)
+
+def show_signup_page():
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        st.markdown("### 🌸 Create Account")
+        name     = st.text_input("Your Name", placeholder="e.g. Bhavya")
+        email    = st.text_input("Email", placeholder="your@email.com")
+        password = st.text_input("Password", type="password",
+                                  placeholder="At least 6 characters")
+        confirm  = st.text_input("Confirm Password", type="password",
+                                  placeholder="Repeat password")
+
+        if st.button("🌿 Sign Up", use_container_width=True):
+            if password != confirm:
+                st.error("Passwords don't match!")
+            elif len(password) < 6:
+                st.error("Password must be at least 6 characters!")
+            else:
+                try:
+                    res = supabase.auth.sign_up({
+                        "email": email,
+                        "password": password,
+                        "options": {"data": {"name": name}}
+                    })
+                    st.success("Account created! Please check your email to verify, then login 🌸")
+                    st.session_state.show_signup = False
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Error: {str(e)}")
+
+        if st.button("← Back to Login", use_container_width=True):
+            st.session_state.show_signup = False
+            st.rerun()
+
+# ── Check Auth ─────────────────────────────────────
+if "user" not in st.session_state:
+    st.session_state.user = None
+if "show_signup" not in st.session_state:
+    st.session_state.show_signup = False
+
+# Show login/signup if not logged in
+if not st.session_state.user:
+    st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700;800;900&display=swap');
+    * { font-family: 'Nunito', sans-serif !important; }
+    .stApp { background: linear-gradient(160deg, #f0faf8 0%, #e0f7f4 100%) !important; }
+    .stButton > button {
+        background: linear-gradient(135deg, #00b894, #00897b) !important;
+        color: white !important; border: none !important;
+        border-radius: 14px !important; font-weight: 700 !important;
+        padding: 12px 20px !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    if st.session_state.show_signup:
+        show_signup_page()
+    else:
+        show_login_page()
+    st.stop()
 
 st.markdown("""
 <style>
