@@ -321,57 +321,46 @@ with tab1:
     """, unsafe_allow_html=True)
 
     # Category cards — tap to go to Log tab
-   # Category buttons that look like cards
-    st.markdown('<div class="section-title">💸 Tap Category to Log</div>',
+  # Category spending summary — display only, no buttons
+    st.markdown('<div class="section-title">💸 Spending by Category</div>',
                unsafe_allow_html=True)
     cs = cat_spending()
-
-    # Add CSS for card-style buttons
-    st.markdown("""
-    <style>
-    div[data-testid="column"] .stButton > button {
-        background: white !important;
-        color: #333 !important;
-        border: none !important;
-        border-radius: 18px !important;
-        padding: 14px 8px !important;
-        width: 100% !important;
-        height: 100px !important;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.07) !important;
-        font-size: 0.8em !important;
-        font-weight: 700 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        transition: transform 0.2s !important;
-    }
-    div[data-testid="column"] .stButton > button:hover {
-        transform: translateY(-3px) !important;
-        box-shadow: 0 6px 20px rgba(0,184,148,0.2) !important;
-        border: 2px solid #00b894 !important;
-        color: #00897b !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    cat_cols = st.columns(4)
-    for i, cat in enumerate(CATEGORIES):
-        sp = cs.get(cat, 0)
-        icon = CAT_ICONS[cat]
+    cat_html = '<div class="cat-grid">'
+    for cat in CATEGORIES:
+        sp    = cs.get(cat, 0)
+        lim   = st.session_state.budgets.get(cat, 0)
+        icon  = CAT_ICONS[cat]
         color = CAT_COLORS[cat]
-        with cat_cols[i % 4]:
-            st.markdown(f"""
-            <div style="background:{color}; border-radius:14px;
-                        padding:8px; text-align:center; margin-bottom:4px;
-                        font-size:1.6em">{icon}</div>
-            """, unsafe_allow_html=True)
-            if st.button(
-                f"{cat.split(' & ')[0].split(' ')[0]}\n{SYMBOL}{sp:.0f}",
-                key=f"home_cat_{cat}"):
-                st.session_state.quick_cat = cat
-                st.session_state.active_tab = "log"
-                st.rerun()
+        bar_w = min(int(sp / lim * 100), 100) if lim > 0 else 0
+        bar_c = "#ff6b9d" if (lim > 0 and sp > lim) else "#2ecc71"
+        cat_html += f"""
+        <div class="cat-card">
+            <div style="background:{color}; border-radius:14px; padding:10px;
+                        display:inline-block; margin-bottom:4px">
+                <span style="font-size:1.4em">{icon}</span>
+            </div>
+            <div class="cat-name">{cat.split(' ')[0]}</div>
+            <div class="cat-amount">{SYMBOL}{sp:.0f}</div>
+            <div class="cat-bar" style="background:#f0f0f0">
+                <div style="width:{bar_w}%; background:{bar_c};
+                            height:4px; border-radius:2px"></div>
+            </div>
+        </div>"""
+    cat_html += '</div>'
+    st.markdown(cat_html, unsafe_allow_html=True)
+
+    # Big Log button
+    st.markdown("<br>", unsafe_allow_html=True)
+    col_log1, col_log2, col_log3 = st.columns([1,2,1])
+    with col_log2:
+        st.markdown("""
+        <div style="text-align:center; background:linear-gradient(135deg,#00b894,#00897b);
+                    border-radius:20px; padding:16px; color:white; font-weight:800;
+                    font-size:1.1em; box-shadow:0 4px 15px rgba(0,184,148,0.3);
+                    margin:10px 0">
+            ⚡ Go to Log tab to add expenses
+        </div>
+        """, unsafe_allow_html=True)
 
     # Recent transactions
     if st.session_state.expenses:
