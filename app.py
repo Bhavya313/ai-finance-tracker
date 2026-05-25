@@ -16,8 +16,18 @@ from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from supabase import create_client
 
 st.set_page_config(page_title="🌸 Finance Diary", page_icon="🌸", layout="centered")
-# Google Search Console verification
-st.markdown('<meta name="google-site-verification" content="g5UL2yy9uIpi7tcy0n37IfbNe3FDXNEIUG2GHwSB4iA" />', unsafe_allow_html=True)
+# Google Analytics
+st.markdown("""
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CV3T69VBMX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CV3T69VBMX');
+</script>
+""", unsafe_allow_html=True)
+
 # ── Supabase Setup ─────────────────────────────────
 supabase = create_client(
     os.getenv("SUPABASE_URL"),
