@@ -16,7 +16,8 @@ from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from supabase import create_client
 
 st.set_page_config(page_title="🌸 Finance Diary", page_icon="🌸", layout="centered")
-
+# Google Search Console verification
+st.markdown('<meta name="google-site-verification" content="g5UL2yy9uIpi7tcy0n37IfbNe3FDXNEIUG2GHwSB4iA" />', unsafe_allow_html=True)
 # ── Supabase Setup ─────────────────────────────────
 supabase = create_client(
     os.getenv("SUPABASE_URL"),
@@ -302,6 +303,18 @@ st.markdown("""
     <p>Your cute & smart money tracker ✨</p>
 </div>
 """, unsafe_allow_html=True)
+# Logout button in sidebar
+with st.sidebar:
+    user_name = st.session_state.user.user_metadata.get("name",
+                st.session_state.user.email) if st.session_state.user else ""
+    st.markdown(f"### 👋 Hi {user_name}!")
+    st.markdown(f"📧 {st.session_state.user.email}")
+    st.markdown("---")
+    if st.button("🚪 Logout"):
+        supabase.auth.sign_out()
+        st.session_state.user = None
+        st.session_state.clear()
+        st.rerun()
 
 # ── Session State ──────────────────────────────────────────
 defaults = {
